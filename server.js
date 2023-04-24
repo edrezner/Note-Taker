@@ -13,20 +13,15 @@ app.use(express.static("public"));
 
 let noteData = [];
 
-try {
-  const data = fs.readFileSync(dbData);
-  noteData = JSON.parse(data);
-} catch (err) {
-  console.error(err);
-}
-
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
-app.get("/api/notes", (req, res) => {
-  res.json(noteData);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
+
+app.get("/api/notes", (req, res) => {});
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
